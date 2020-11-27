@@ -7,22 +7,33 @@
     <title></title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    
-    
+
+
     <!-- <msdropdown> -->
     <link rel="stylesheet" type="text/css" href="css/msdropdown/dd.css" />
 
 
     <script src="js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
-    <script src="/scripts/bootstrap.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/msdropdown/jquery.dd.js"></script>
 
+    <script type="text/javascript" src="js/msdropdown/jquery.dd.min.js"></script>
+
+    <script src="/scripts/bootstrap.min.js" type="text/javascript"></script>
     <!-- Script is used to call the JQuery for dropdown -->
 
     <script type="text/javascript">
 
         $(document).ready(function (e) {
 
+            DisplayImg();
+            var param = Sys.WebForms.PageRequestManager.getInstance();
+            param.add_endRequest(function () {
+                DisplayImg();
+            });
+
+        });
+
+
+        function DisplayImg() {
             try {
 
                 $("#ddlMyHappinessImg").msDropDown();
@@ -35,23 +46,7 @@
                 alert(e.message);
 
             }
-            $('#btnSave').click(function (e) {
-                try {
-
-                    $("#ddlMyHappinessImg").msDropDown();
-                    $("#ddlMyPlayImg").msDropDown();
-                    $("#ddlTeamHappyImg").msDropDown();
-                    $("#ddlGameHappyImg").msDropDown();
-
-                } catch (e) {
-
-                    alert(e.message);
-
-                }
-            });
-        });
-        
-
+        }
 
     </script>
     <style>
@@ -73,9 +68,17 @@
                             <h2>Feedback Form</h2>
                         </div>
                         <div class="col-md-4">
-                            <asp:Label ID="LblError" runat="server" Text="" CssClass="control-label formlabel"></asp:Label>
+                            <asp:Label ID="LblError" runat="server" Visible="false" Text="" Style="color: red;" CssClass="control-label formlabel"></asp:Label>
                         </div>
                     </div>
+                    <div class="divspacing"></div>
+                    <div class="row" style="padding:10px;">
+
+                        <div class="col-lg-12" align="right">
+                            <asp:Button ID="btnReport" runat="server" Text="View Report" CssClass="btn btn-primary buttonClass" OnClick="btnReport_Click" />&nbsp;&nbsp;&nbsp;&nbsp;     
+                        </div>
+                    </div>
+                    <div class="divspacing"></div>
 
                     <div class="divspacing"></div>
 
@@ -93,7 +96,7 @@
                                     <asp:TextBox ID="txtName" runat="server" CssClass="form-control" MaxLength="50" autocomplete="Off"></asp:TextBox>
                                 </div>
                             </div>
-
+                           
                             <div class="divspacing"></div>
                             <div class="row">
                                 <div class="col-md-2"></div>
@@ -101,8 +104,10 @@
                                     <asp:Label ID="Label1" runat="server" Text="My Happiness :" CssClass="control-label formlabel"></asp:Label><span style="color: Red">*</span>
                                 </div>
                                 <div class="col-md-5 form-group">
+
                                     <asp:DropDownList ID="ddlMyHappinessImg" runat="server" CssClass="form-control" ClientIDMode="Static">
                                     </asp:DropDownList>
+
                                 </div>
                             </div>
                             <div class="divspacing"></div>
@@ -186,7 +191,7 @@
                                     <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary buttonClass" OnClick="btnSave_Click" />&nbsp;&nbsp;&nbsp;&nbsp;     
                     <asp:Button CssClass="btn btn-primary buttonClass"
                         ID="btnCancel" runat="server" CausesValidation="false" Text="Cancel"
-                        OnClick="btnCancel_Click"  />
+                        OnClick="btnCancel_Click" />
                                 </div>
 
                             </div>

@@ -12,7 +12,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="divspacing"></div>
-        <div class=" body-content" style="padding:10px;">
+        <div class=" body-content" style="padding: 10px;">
             <div class="row">
                 <div class="col-md-4" align="Center">
                     <h2>Feedback Report</h2>
@@ -20,12 +20,13 @@
 
             </div>
             <div id="DivPrint" class="DIVImg setPosition">
-                <div align="right">
 
-                    <div align="right">
-                        <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" Text="Export to Excel" OnClick="btnExport_Click" />
-                    </div>
-
+                <div align="right"  style="width: 93%; padding:10px;">
+                   <asp:Button ID="btnForm" CssClass="btn btn-primary" runat="server" Text="Back to Form" OnClick="btnForm_Click" />
+               &nbsp; &nbsp;
+                      <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" Text="Export to Excel" OnClick="btnExport_Click" />
+                    
+                       <%--     <asp:Button ID="Button1" CssClass="btn btn-primary" runat="server" Text="Export to Excel test" OnClick="Button1_Click" />--%>
                 </div>
             </div>
 
@@ -60,7 +61,7 @@
                                     ItemStyle-CssClass="numerdatagrid">
                                     <ItemTemplate>
                                         <img alt="Not Found" width="30px" height="30px" src='<%#"emoji/"+ Eval("MY_HAPPINESS_IMG") %>' />
-                                        <%--"Images/view.gif"--%>
+                                        <%-- <asp:Image ID="imgTest" runat="server" ImageUrl='<%#Server.MapPath("emoji/"+Eval("MY_HAPPINESS_IMG"))%>' />--%>
                                     </ItemTemplate>
                                     <ItemStyle Width="20px"></ItemStyle>
                                 </asp:TemplateField>
@@ -124,7 +125,7 @@
                             <PagerStyle BackColor="skyblue" ForeColor="#000066" Font-Size="X-Small" CssClass="PagerCSS"
                                 HorizontalAlign="Left" />
                             <PagerSettings FirstPageText="First" LastPageText="Last" Mode="Numeric" Position="Bottom" />
-                            <HeaderStyle Font-Size="11px" BackColor="SkyBlue" ForeColor="Black" />
+                            <HeaderStyle Font-Size="11px" BackColor="#3fafc5" ForeColor="Black" />
                             <AlternatingRowStyle CssClass="AlternatingItemStyle" />
                         </asp:GridView>
                         <div style="text-align: center;">
@@ -134,7 +135,33 @@
                 </div>
             </div>
 
+
         </div>
+
+        <%--<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" Font-Names="Arial">
+
+                <Columns>
+
+                    <asp:BoundField DataField="ID" HeaderText="ID"
+                        ItemStyle-Height="150" />
+
+                    <asp:BoundField DataField="FileName" HeaderText="Image Name"
+                        ItemStyle-Height="150" />
+
+                    <asp:TemplateField ItemStyle-Height="150"  ItemStyle-Width="170">
+
+                        <ItemTemplate>
+
+                            <asp:Image ID="Image1" runat="server"
+                                ImageUrl='<%#Eval("FilePath", GetUrl("{0}")) %>' />
+
+                        </ItemTemplate>
+
+                    </asp:TemplateField>
+
+                </Columns>
+
+            </asp:GridView>--%>
     </form>
 </body>
 </html>

@@ -47,6 +47,12 @@ namespace Proj_Feedback
             DataSet ds = SqlHelper.ExecuteDataset(connetionString, CommandType.Text, query);
             return ds.Tables[0];
         }
+        public DataTable GetFeedbackDetailtest()
+        {
+            string query = "SELECT FEEDID as ID,NAME as FILENAME,MY_HAPPINESS_IMG as FilePath FROM TBL_FEEDBACK where FEEDID in (4,5,6)";
+            DataSet ds = SqlHelper.ExecuteDataset(connetionString, CommandType.Text, query);
+            return ds.Tables[0];
+        }
     }
 
     public class FeedbackElement

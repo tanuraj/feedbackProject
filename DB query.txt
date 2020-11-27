@@ -1,0 +1,45 @@
+CREATE DATABASE Emp_Feedback_db1
+GO
+--/////////////////////////////////////////////////////////////
+
+CREATE TABLE Tbl_Emotions(
+	Emoji_Id bigint IDENTITY(1,1) ,
+	Emotion nvarchar(50) NOT NULL,
+	ImgName nvarchar(50) NOT NULL,
+	ImgData varbinary(max) NULL,
+ CONSTRAINT PK_Tbl_Emotions PRIMARY KEY CLUSTERED 
+(
+	Emoji_Id ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON PRIMARY
+) ON PRIMARY TEXTIMAGE_ON PRIMARY
+GO
+
+--////////////////////////////////////////////////////////
+
+
+CREATE TABLE TBL_FEEDBACK(
+	FEEDID bigint IDENTITY(1,1) NOT NULL,
+	FEED_DATETIME datetime NOT NULL,
+	NAME nvarchar(50) NOT NULL,
+	MY_HAPPINESS_Emoji nvarchar(50) NOT NULL,
+	MY_HAPPINESS_IMG nvarchar(max)  NULL,
+	MY_HAPPINESS_REMARK nvarchar(max)  NULL,
+	MY_PLAY_Emoji nvarchar(50) NOT NULL,
+	MY_PLAY_IMG nvarchar(max)  NULL,
+	MY_PLAY_REMARK nvarchar(max)  NULL,
+	TEAM_HAPPINESS_Emoji nvarchar(50) NOT NULL,
+	TEAM_HAPPINESS_IMG nvarchar(max)  NULL,
+	TEAM_HAPPINESS_REMARK nvarchar(max)  NULL,
+	GAME_HAPPINESS_Emoji nvarchar(50) NOT NULL,
+	GAME_HAPPINESS_IMG nvarchar(max)  NULL,
+	GAME_HAPPINESS_REMARK nvarchar(max)  NULL,
+	MYHAPPINESSPIC varbinary(max) NULL,
+	MYPLAYPIC varbinary(max) NULL,
+	GAMEHAPPINESSPIC varbinary(max) NULL,
+	TEAMHAPPINESSPIC varbinary(max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	FEEDID ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON PRIMARY
+) ON PRIMARY TEXTIMAGE_ON PRIMARY
+GO

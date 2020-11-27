@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.IO;
+using System.Threading;
 
 namespace Proj_Feedback
 {
@@ -18,10 +19,13 @@ namespace Proj_Feedback
             {
                 DataInteraction oDal = new DataInteraction();
                 DataTable dt = oDal.GetFeedbackDetail();
+                DataTable dt1 = oDal.GetFeedbackDetailtest();
                 ViewState["dt"] = dt;
+                ViewState["dt1"] = dt1;
                 if (dt.Rows.Count > 0)
                 {
                     BindGrid(GvDetail);
+
                 }
                 else
                 {
@@ -30,10 +34,17 @@ namespace Proj_Feedback
 
             }
         }
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
+               server control at run time. */
+        }
         private void BindGrid(GridView gv)
         {
             gv.DataSource = ViewState["dt"];
             gv.DataBind();
+
+
         }
 
         protected void GvDetail_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -41,6 +52,11 @@ namespace Proj_Feedback
             BindGrid(GvDetail);
             GvDetail.PageIndex = e.NewPageIndex;
             GvDetail.DataBind();
+        }
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            GenerateExcel((DataTable)ViewState["dt"]);
+
         }
 
         public void GenerateExcel(DataTable ds)
@@ -51,21 +67,6 @@ namespace Proj_Feedback
 
                 System.IO.StringWriter tw = new System.IO.StringWriter();
                 System.Web.UI.HtmlTextWriter hw = new System.Web.UI.HtmlTextWriter(tw);
-                /*
-                List<KeyValuePair<string, string>> renameCOlumns = new List<KeyValuePair<string, string>>();
-                renameCOlumns.Add(new KeyValuePair<string, string>("USER NAME", "USER NAME"));
-                renameCOlumns.Add(new KeyValuePair<string, string>("GENUINE", "GENUINE"));
-                renameCOlumns.Add(new KeyValuePair<string, string>("FRAUD", "FRAUD"));
-                renameCOlumns.Add(new KeyValuePair<string, string>("PENDING", "PENDING"));
-                renameCOlumns.Add(new KeyValuePair<string, string>("DISCARD", "DISCARD"));
-
-                foreach (KeyValuePair<string, string> column in renameCOlumns)
-                {
-                    if (ds.Tables[0].Columns.Contains(column.Key))
-                    {
-                        ds.Tables[0].Columns[column.Key].ColumnName = column.Value;
-                    }
-                }*/
 
 
                 Panel pnl = new Panel();
@@ -156,6 +157,7 @@ namespace Proj_Feedback
             }
 
         }
+
         public static void ExportControlToExcel(WebControl Control, string FileName)
         {
             try
@@ -168,7 +170,7 @@ namespace Proj_Feedback
                 StringWriter strwritter = new StringWriter();
                 HtmlTextWriter HtmlTextWrtter = new HtmlTextWriter(strwritter);
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                HttpContext.Current.Response.ContentType = "application/ms-excel";
+                HttpContext.Current.Response.ContentType = "application /ms-excel";
                 HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
                 Control.RenderControl(HtmlTextWrtter);
                 string style = @"<style>td{
@@ -183,14 +185,15 @@ vertical-align:text-top;
             }
             catch (System.Threading.ThreadAbortException ex)
             { }
+
+
         }
 
-
-
-        protected void btnExport_Click(object sender, EventArgs e)
+        protected void btnForm_Click(object sender, EventArgs e)
         {
-            GenerateExcel((DataTable)ViewState["dt"]);
-
+            GvDetail.DataSource = null;
+            GvDetail.DataBind();
+            Response.Redirect("Feedback_Form.aspx");
         }
     }
 }

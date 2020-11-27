@@ -19,8 +19,9 @@ namespace Proj_Feedback
                 btnSave.Enabled = true;
                 LblError.Text = string.Empty;
                 data();
-                Imagetitlebind();
+               
             }
+            Imagetitlebind();
         }
 
         public void data()
@@ -153,6 +154,10 @@ namespace Proj_Feedback
                 // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notify", "alert('Notification : '"+erMsg.Trim()+"');", true);
                 // LblError.Text = erMsg.Trim();
                 //divError.InnerText = erMsg.Trim();
+               
+                //string script = "<script>DisplayImg()</script>";
+                //ClientScript.RegisterStartupScript(this.GetType(), "", script);
+               // Imagetitlebind();
                 return;
             }
             else
@@ -188,23 +193,22 @@ namespace Proj_Feedback
                 {
                     //  LblError.Text = "Thanks for yor feedback";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Alert", "alert('Thanks for yor feedback');", true);
-
+                    clearControls();
                     //  divError.InnerText = "Thanks for yor feedback";
                     btnSave.Enabled = false;
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Alert", "alert('Oops! Something went wrong.');", true);
-                    //     LblError.Text = "  Oops! Something went wrong.";
+                        // LblError.Text = "  Oops! Something went wrong.";
                     //  divError.InnerText = "  Oops! Something went wrong.";
                     btnSave.Enabled = true;
                 }
-
+              
             }
         }
 
-
-        protected void btnCancel_Click(object sender, EventArgs e)
+        private void clearControls()
         {
             LblError.Text = string.Empty;
             //  divError.InnerText = string.Empty;
@@ -221,6 +225,12 @@ namespace Proj_Feedback
             txtTeamHappiness.Text = string.Empty;
 
             txtGameHappiness.Text = string.Empty;
+            btnSave.Enabled = true;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            clearControls();
 
         }
 
@@ -268,6 +278,12 @@ namespace Proj_Feedback
             }
 
             return string.Empty;
+        }
+
+        protected void btnReport_Click(object sender, EventArgs e)
+        {
+            clearControls();
+            Response.Redirect("FeedbackReport.aspx");
         }
     }
 }
